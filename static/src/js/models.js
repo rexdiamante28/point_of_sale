@@ -1074,6 +1074,7 @@ exports.Orderline = Backbone.Model.extend({
         this.price   = options.product.price;
         this.set_quantity(1);
         this.discount = 0;
+        this.notice = ''
         this.discountStr = '0';
         this.type = 'unit';
         this.selected = false;
@@ -1119,9 +1120,10 @@ exports.Orderline = Backbone.Model.extend({
         this.pack_lot_lines  = this.has_product_lot && new PacklotlineCollection(null, {'order_line': this});
     },
     // sets a discount [0,100]%
-    set_discount: function(discount){
+    set_discount: function(discount, discount_desc = ''){
         var disc = Math.min(Math.max(parseFloat(discount) || 0, 0),100);
         this.discount = disc;
+        this.notice = discount_desc;
         this.discountStr = '' + disc;
         this.trigger('change',this);
     },
@@ -1131,6 +1133,9 @@ exports.Orderline = Backbone.Model.extend({
     },
     get_discount_str: function(){
         return this.discountStr;
+    },
+    get_notice_str: function(){
+        return this.notice;
     },
     get_product_type: function(){
         return this.type;

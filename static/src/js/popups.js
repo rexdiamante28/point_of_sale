@@ -193,6 +193,35 @@ var TextInputPopupWidget = PopupWidget.extend({
 });
 gui.define_popup({name:'textinput', widget: TextInputPopupWidget});
 
+/////////////////////////////////////////////////////////////////////////////
+
+
+var DiscountPopUpWidget = PopupWidget.extend({
+    template: 'DiscountPopUpWidget',
+    show: function(options){
+        options = options || {};
+        this._super(options);
+
+        this.renderElement();
+        this.$('input,textarea').focus();
+    },
+    click_confirm: function(){
+        //var value = this.$('input,textarea').val();
+        var value = {
+            'ref_id': this.$('#ref_id').val(),
+            'full_name': this.$('#full_name').val()
+        }
+        this.gui.close_popup();
+        if( this.options.confirm ){
+            this.options.confirm.call(this,value);
+        }
+    },
+});
+gui.define_popup({name:'discountpopup', widget: DiscountPopUpWidget});
+
+
+//////////////////////////////////////////////////////////////////////////////
+
 
 var TextAreaPopupWidget = TextInputPopupWidget.extend({
     template: 'TextAreaPopupWidget',

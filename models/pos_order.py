@@ -821,6 +821,7 @@ class PosOrderLine(models.Model):
 
     @api.model
     def create(self, values):
+        #values['notice'] = 'sample'
         if values.get('order_id') and not values.get('name'):
             # set name based on the sequence specified on the config
             config_id = self.env['pos.order'].browse(values['order_id']).session_id.config_id.id

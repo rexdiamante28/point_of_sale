@@ -1043,6 +1043,31 @@
         </div>
     </t>
 
+
+    <t t-name="DiscountPopUpWidget">
+        <div class="modal-dialog">
+            <div class="popup popup-textinput">
+
+                <p class="title"><t t-esc=" widget.options.title || '' " /></p>
+
+                <p>REF # / ID #</p>
+                <input type='text' id='ref_id' t-att-value="widget.options.ref_id || ''"></input>
+
+                <p>FULL NAME</p>
+                <input type='text' id='full_name' t-att-value="widget.options.full_name || ''"></input>
+                <div class="footer">
+                    <div class="button confirm">
+                        Ok 
+                    </div>
+                    <div class="button cancel">
+                        Cancel 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+ 
     <t t-name="PackLotLinePopupWidget">
         <div class="modal-dialog">
             <div class="popup popup-text">
@@ -1249,7 +1274,8 @@
                     <li class="info">
                         With a 
                         <em>
-                            <t t-esc="line.get_discount_str()" />%
+                            <t t-esc="line.get_discount_str()" /> %
+                            <t t-esc="line.get_notice_str()" />
                         </em>
                         discount
                     </li>
@@ -1429,7 +1455,9 @@
                         <t t-esc="orderline.get_product().display_name"/>
                          <t t-if="orderline.get_discount() > 0">
                             <div class="pos-disc-font">
-                                With a <t t-esc="orderline.get_discount()"/>% discount
+                                With a <t t-esc="orderline.get_discount()"/>% 
+                                <t t-esc="orderline.get_notice_str()" />
+                                discount
                             </div>
                         </t>
                     </td>
